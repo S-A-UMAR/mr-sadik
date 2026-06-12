@@ -774,7 +774,7 @@ function renderMediaLibrary() {
   const grid = document.getElementById('media-grid');
   if (!grid) return;
 
-  const stored = JSON.parse(localStorage.getItem('ms_media_uploads') || '[]');
+  const stored = JSON.parse(localStorage.getItem('maison_sadique_media_uploads') || '[]');
   const all = [...defaultAssets, ...stored];
 
   grid.innerHTML = all.map((asset, idx) => `
@@ -799,9 +799,9 @@ window.handleMediaUpload = function(event) {
 
   const reader = new FileReader();
   reader.onload = (e) => {
-    const stored = JSON.parse(localStorage.getItem('ms_media_uploads') || '[]');
+    const stored = JSON.parse(localStorage.getItem('maison_sadique_media_uploads') || '[]');
     stored.push({ src: e.target.result, name: file.name });
-    localStorage.setItem('ms_media_uploads', JSON.stringify(stored));
+    localStorage.setItem('maison_sadique_media_uploads', JSON.stringify(stored));
     renderMediaLibrary();
     showToast(`"${file.name}" uploaded successfully.`, 'success');
     addActivity(`Media uploaded: ${file.name}`, 'green');
@@ -816,11 +816,11 @@ window.copyMediaUrl = function(url) {
 };
 
 window.deleteMedia = function(idx) {
-  const stored = JSON.parse(localStorage.getItem('ms_media_uploads') || '[]');
+  const stored = JSON.parse(localStorage.getItem('maison_sadique_media_uploads') || '[]');
   const offset = idx - defaultAssets.length;
   if (offset >= 0 && offset < stored.length) {
     stored.splice(offset, 1);
-    localStorage.setItem('ms_media_uploads', JSON.stringify(stored));
+    localStorage.setItem('maison_sadique_media_uploads', JSON.stringify(stored));
     renderMediaLibrary();
     showToast('Image deleted from library.', 'error');
   }
@@ -830,11 +830,11 @@ window.deleteMedia = function(idx) {
    SETTINGS
 ────────────────────────────────────────────── */
 function loadSettingsForm() {
-  const waNum  = window.getWhatsAppNumber ? window.getWhatsAppNumber() : localStorage.getItem('ms_wa_number') || '';
-  const cur    = window.getCurrencySymbol ? window.getCurrencySymbol() : localStorage.getItem('ms_currency') || '$';
+  const waNum  = window.getWhatsAppNumber ? window.getWhatsAppNumber() : localStorage.getItem('maison_sadique_wa_number') || '';
+  const cur    = window.getCurrencySymbol ? window.getCurrencySymbol() : localStorage.getItem('maison_sadique_currency') || '$';
   const quote  = localStorage.getItem('maison_sadique_about_quote') || 'Time is not merely a duration to be measured, but a canvas for artistic precision and mechanical truth.';
-  const waMsg  = localStorage.getItem('ms_wa_message') || 'Hello Maison Sadique, I would like to inquire about a watch order.';
-  const email  = localStorage.getItem('ms_email') || 'support@maisonsadique.com';
+  const waMsg  = localStorage.getItem('maison_sadique_wa_message') || 'Hello Maison Sadique, I would like to inquire about a watch order.';
+  const email  = localStorage.getItem('maison_sadique_email') || 'support@maisonsadique.com';
 
   setInputVal('s-wa-number', waNum);
   setInputVal('s-wa-message', waMsg);
@@ -851,8 +851,8 @@ function initForms() {
       e.preventDefault();
       const num = document.getElementById('s-wa-number').value.trim();
       const msg = document.getElementById('s-wa-message').value.trim();
-      localStorage.setItem('ms_wa_number', num);
-      localStorage.setItem('ms_wa_message', msg);
+      localStorage.setItem('maison_sadique_wa_number', num);
+      localStorage.setItem('maison_sadique_wa_message', msg);
       if (window.adminUpdateSettings) window.adminUpdateSettings(num, window.getCurrencySymbol(), localStorage.getItem('maison_sadique_about_quote') || '');
       showToast('WhatsApp settings saved.', 'success');
       addActivity('WhatsApp settings updated', 'blue');
@@ -867,9 +867,9 @@ function initForms() {
       const cur   = document.getElementById('s-currency').value;
       const quote = document.getElementById('s-quote').value.trim();
       const email = document.getElementById('s-email').value.trim();
-      localStorage.setItem('ms_currency', cur);
+      localStorage.setItem('maison_sadique_currency', cur);
       localStorage.setItem('maison_sadique_about_quote', quote);
-      localStorage.setItem('ms_email', email);
+      localStorage.setItem('maison_sadique_email', email);
       if (window.adminUpdateSettings) window.adminUpdateSettings(window.getWhatsAppNumber(), cur, quote);
       showToast('Branding settings saved.', 'success');
       addActivity('Branding configuration updated', 'blue');
@@ -1029,7 +1029,7 @@ function setInputVal(id, val) {
 
 function fmtCurrency(val) {
   if (typeof window.formatCurrency === 'function') return window.formatCurrency(val);
-  const sym = localStorage.getItem('ms_currency') || '$';
+  const sym = localStorage.getItem('maison_sadique_currency') || '$';
   return `${sym}${Number(val || 0).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
 }
 

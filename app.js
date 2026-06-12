@@ -1,5 +1,5 @@
-// Product Database
-const products = [
+// Default Product Database
+const defaultProducts = [
   {
     id: "classic-gold",
     name: "Maison Sadique Classic Gold",
@@ -66,15 +66,36 @@ const products = [
   }
 ];
 
-// Cart State Manager
+// Global State
+let products = [];
 let cart = [];
+let orders = [];
 
-// Load cart from LocalStorage
-function loadCart() {
-  const savedCart = localStorage.getItem('maison_sadique_cart');
-  if (savedCart) {
+// Load products database
+function loadProducts() {
+  const saved = localStorage.getItem('maison_sadique_products');
+  if (saved) {
     try {
-      cart = JSON.parse(savedCart);
+      products = JSON.parse(saved);
+    } catch (e) {
+      products = [...defaultProducts];
+    }
+  } else {
+    products = [...defaultProducts];
+    saveProducts();
+  }
+}
+
+function saveProducts() {
+  localStorage.setItem('maison_sadique_products', JSON.stringify(products));
+}
+
+// Load cart state
+function loadCart() {
+  const saved = localStorage.getItem('maison_sadique_cart');
+  if (saved) {
+    try {
+      cart = JSON.parse(saved);
     } catch (e) {
       cart = [];
     }
@@ -83,10 +104,54 @@ function loadCart() {
   }
 }
 
-// Save cart to LocalStorage
 function saveCart() {
   localStorage.setItem('maison_sadique_cart', JSON.stringify(cart));
   updateHeaderCartBadge();
+}
+
+// Settings helpers
+function getWhatsAppNumber() {
+  return localStorage.getItem('maison_sadique_wa_number') || '447123456789';
+}
+
+function getCurrencySymbol() {
+  return localStorage.getItem('maison_sadique_currency') || '$';
+}
+
+function getCurrencyCode() {
+  const sym = getCurrencySymbol();
+  if (sym === '€') return 'EUR';
+  if (sym === '£') return 'GBP';
+  return 'USD';
+}
+
+// Format Currency
+function formatCurrency(amount) {
+  const code = getCurrencyCode();
+  const symbol = getCurrencySymbol();
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: code,
+    maximumFractionDigits: 0
+  }).format(amount);
+}
+
+// Load orders database
+function loadOrders() {
+  const saved = localStorage.getItem('maison_sadique_orders');
+  if (saved) {
+    try {
+      orders = JSON.parse(saved);
+    } catch (e) {
+      orders = [];
+    }
+  } else {
+    orders = [];
+  }
+}
+
+function saveOrders() {
+  localStorage.setItem('maison_sadique_orders', JSON.stringify(orders));
 }
 
 // Add Item to Cart
@@ -141,15 +206,6 @@ function clearCart() {
   saveCart();
 }
 
-// Format Currency
-function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 0
-  }).format(amount);
-}
-
 // Dynamic Header Cart Badge
 function updateHeaderCartBadge() {
   const count = getCartCount();
@@ -164,9 +220,8 @@ function updateHeaderCartBadge() {
   });
 }
 
-// Show micro-interaction Toast Notification
+// Toast Notification
 function showToast(message) {
-  // Create toast container if it doesn't exist
   let container = document.getElementById('toast-container');
   if (!container) {
     container = document.createElement('div');
@@ -197,13 +252,11 @@ function showToast(message) {
   
   container.appendChild(toast);
   
-  // Animate Entry
   setTimeout(() => {
     toast.style.transform = 'translateY(0)';
     toast.style.opacity = '1';
   }, 50);
   
-  // Auto Remove
   setTimeout(() => {
     toast.style.transform = 'translateY(-20px)';
     toast.style.opacity = '0';
@@ -215,8 +268,7 @@ function showToast(message) {
 
 // WhatsApp Checkout Generator
 function generateWhatsAppLink(name, phone, address, notes) {
-  // Prefill boutique WhatsApp number (Replace with actual phone if needed)
-  const businessNumber = "447123456789"; 
+  const businessNumber = getWhatsAppNumber();
   
   let orderDetailsText = `*NEW ORDER - MAISON SADIQUE*\n`;
   orderDetailsText += `------------------------------------\n`;
@@ -260,7 +312,6 @@ function initMobileMenu() {
   const header = document.querySelector('header');
   if (!header) return;
 
-  // 1. Create Hamburger button
   const toggleBtn = document.createElement('button');
   toggleBtn.className = 'mobile-menu-toggle';
   toggleBtn.setAttribute('aria-label', 'Toggle Navigation Menu');
@@ -277,7 +328,6 @@ function initMobileMenu() {
     header.appendChild(toggleBtn);
   }
 
-  // 2. Create Mobile Menu Overlay
   const overlay = document.createElement('div');
   overlay.className = 'mobile-menu-overlay';
 
@@ -290,18 +340,17 @@ function initMobileMenu() {
   overlay.innerHTML = `
     <div class="mobile-menu-content">
       ${linksHtml}
+      <a href="admin.html" style="font-size: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; color: var(--accent-gold);">Atelier Admin</a>
     </div>
   `;
   document.body.appendChild(overlay);
 
-  // 3. Bind events
   toggleBtn.addEventListener('click', () => {
     toggleBtn.classList.toggle('active');
     overlay.classList.toggle('active');
     document.body.classList.toggle('no-scroll');
   });
 
-  // Close mobile overlay on clicking any link
   overlay.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       toggleBtn.classList.remove('active');
@@ -332,12 +381,37 @@ function initMobileFilters() {
   });
 }
 
+// Dynamic about quote check
+function initAboutPageQuote() {
+  const quoteEl = document.querySelector('.editorial-para');
+  if (quoteEl) {
+    const savedQuote = localStorage.getItem('maison_sadique_about_quote');
+    if (savedQuote) {
+      quoteEl.textContent = savedQuote;
+    }
+  }
+}
+
+// Update all hardcoded WhatsApp links with the user-defined business number
+function updateWhatsAppLinks() {
+  const businessNumber = getWhatsAppNumber();
+  const links = document.querySelectorAll('a[href*="wa.me"]');
+  links.forEach(link => {
+    link.href = link.href.replace(/wa\.me\/447123456789/g, `wa.me/${businessNumber}`);
+  });
+}
+
+// Load Products immediately on execution
+loadProducts();
+loadOrders();
+
 // DOM Page Handlers
 document.addEventListener('DOMContentLoaded', () => {
   loadCart();
   updateHeaderCartBadge();
   initHeaderShrink();
   initMobileMenu();
+  updateWhatsAppLinks();
 
   const path = window.location.pathname;
   const pageName = path.substring(path.lastIndexOf('/') + 1);
@@ -362,6 +436,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (pageName === 'cart.html') {
     initCartPage();
   }
+
+  // ABOUT handlers
+  if (pageName === 'about.html') {
+    initAboutPageQuote();
+  }
 });
 
 // Render Featured Grid on Homepage
@@ -369,7 +448,6 @@ function renderFeaturedProducts() {
   const grid = document.getElementById('featured-products-grid');
   if (!grid) return;
   
-  // Show 3 featured watches
   const featured = products.slice(0, 3);
   
   grid.innerHTML = featured.map((product, index) => `
@@ -408,7 +486,6 @@ function initCatalogPage() {
   
   let currentSort = 'default';
 
-  // Render complete catalog
   function renderCatalog() {
     let filteredProducts = products.filter(product => {
       // Category filter
@@ -418,7 +495,7 @@ function initCatalogPage() {
       
       // Material filter
       if (filters.materials.length > 0) {
-        const productMaterial = product.specs['Case'].toLowerCase();
+        const productMaterial = (product.specs['Case'] || '').toLowerCase();
         const matchesMaterial = filters.materials.some(m => productMaterial.includes(m.toLowerCase()));
         if (!matchesMaterial) return false;
       }
@@ -440,7 +517,6 @@ function initCatalogPage() {
       filteredProducts.sort((a, b) => b.price - a.price);
     }
 
-    // Render HTML
     if (filteredProducts.length === 0) {
       grid.innerHTML = `<div style="grid-column: 1/-1; padding: 4rem 0; text-align: center; color: var(--text-secondary);">No watches match your selection.</div>`;
     } else {
@@ -469,7 +545,6 @@ function initCatalogPage() {
     countEl.textContent = `${filteredProducts.length} ${filteredProducts.length === 1 ? 'Watch' : 'Watches'}`;
   }
 
-  // Bind side filters
   document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
     checkbox.addEventListener('change', (e) => {
       const type = e.target.name;
@@ -489,7 +564,6 @@ function initCatalogPage() {
         }
       } else if (type === 'price') {
         if (e.target.checked) {
-          // Uncheck other price checkboxes to make it single select
           document.querySelectorAll('input[name="price"]').forEach(cb => {
             if (cb !== e.target) cb.checked = false;
           });
@@ -499,7 +573,6 @@ function initCatalogPage() {
         }
       }
 
-      // Smooth render catalog
       if (document.startViewTransition) {
         document.startViewTransition(() => renderCatalog());
       } else {
@@ -508,7 +581,6 @@ function initCatalogPage() {
     });
   });
 
-  // Bind Sort Selection
   const sortSelect = document.getElementById('catalog-sort');
   if (sortSelect) {
     sortSelect.addEventListener('change', (e) => {
@@ -521,14 +593,13 @@ function initCatalogPage() {
     });
   }
 
-  // First render
   renderCatalog();
 }
 
-// Product Detail Page rendering & interactivity
+// Product Detail Page rendering
 function initProductDetailPage() {
   const urlParams = new URLSearchParams(window.location.search);
-  const productId = urlParams.get('id') || 'classic-gold'; // Fallback
+  const productId = urlParams.get('id') || 'classic-gold';
   
   const product = products.find(p => p.id === productId);
   if (!product) {
@@ -536,7 +607,6 @@ function initProductDetailPage() {
     return;
   }
 
-  // Load product content into DOM
   document.getElementById('pdp-name').textContent = product.name;
   document.getElementById('pdp-price').textContent = formatCurrency(product.price);
   document.getElementById('pdp-description').textContent = product.description;
@@ -544,11 +614,8 @@ function initProductDetailPage() {
   const mainImg = document.getElementById('pdp-main-img');
   mainImg.src = product.image;
   mainImg.alt = product.name;
-  
-  // Set view transition name on detail image for transition morphing
   mainImg.style.viewTransitionName = `card-${product.id}`;
 
-  // Populate thumbnails (using same image for prototype gallery)
   const thumbnailsContainer = document.getElementById('pdp-thumbnails');
   if (thumbnailsContainer) {
     thumbnailsContainer.innerHTML = Array(4).fill(null).map((_, index) => `
@@ -558,7 +625,6 @@ function initProductDetailPage() {
     `).join('');
   }
 
-  // Populate specs table
   const specsList = document.getElementById('pdp-specs-list');
   if (specsList) {
     specsList.innerHTML = Object.entries(product.specs).map(([label, value]) => `
@@ -569,7 +635,6 @@ function initProductDetailPage() {
     `).join('');
   }
 
-  // Accordion Expand/Collapse
   const accordionHeader = document.querySelector('.accordion-header');
   if (accordionHeader) {
     accordionHeader.addEventListener('click', () => {
@@ -578,7 +643,6 @@ function initProductDetailPage() {
     });
   }
 
-  // Quantity control buttons
   let qty = 1;
   const qtyInput = document.getElementById('pdp-qty');
   const minusBtn = document.getElementById('pdp-minus');
@@ -597,7 +661,6 @@ function initProductDetailPage() {
     });
   }
 
-  // Add to cart buttons
   const addCartBtn = document.getElementById('pdp-add-cart');
   if (addCartBtn) {
     addCartBtn.addEventListener('click', () => {
@@ -605,18 +668,16 @@ function initProductDetailPage() {
     });
   }
 
-  // WhatsApp inquiry button
   const waInquireBtn = document.getElementById('pdp-wa-inquire');
   if (waInquireBtn) {
     waInquireBtn.addEventListener('click', () => {
-      const businessNumber = "447123456789";
+      const businessNumber = getWhatsAppNumber();
       const message = `Hello Maison Sadique, I am interested in inquiring about the *${product.name}* (${formatCurrency(product.price)}). Can you provide details on current availability?`;
       window.open(`https://wa.me/${businessNumber}?text=${encodeURIComponent(message)}`, '_blank');
     });
   }
 }
 
-// Switch gallery thumbnails
 function switchGalleryImage(btn, imageSrc) {
   document.querySelectorAll('.thumbnail-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -627,7 +688,6 @@ function switchGalleryImage(btn, imageSrc) {
 // Shopping Cart Page Rendering & checkout submit
 function initCartPage() {
   const itemsContainer = document.getElementById('cart-items-container');
-  const summaryPanel = document.getElementById('cart-summary-panel');
   const checkoutView = document.getElementById('cart-checkout-view');
   const emptyView = document.getElementById('cart-empty-view');
 
@@ -643,7 +703,6 @@ function initCartPage() {
     if (checkoutView) checkoutView.style.display = 'grid';
     if (emptyView) emptyView.style.display = 'none';
 
-    // Render Items
     if (itemsContainer) {
       itemsContainer.innerHTML = cart.map(item => `
         <div class="cart-item-row">
@@ -667,7 +726,6 @@ function initCartPage() {
       `).join('');
     }
 
-    // Render Summary
     const subtotal = getCartTotal();
     const subtotalEl = document.getElementById('cart-subtotal');
     const totalEl = document.getElementById('cart-total');
@@ -676,7 +734,6 @@ function initCartPage() {
     if (totalEl) totalEl.textContent = formatCurrency(subtotal);
   }
 
-  // Bind Checkout form submit
   const form = document.getElementById('checkout-form');
   if (form) {
     form.addEventListener('submit', (e) => {
@@ -692,18 +749,32 @@ function initCartPage() {
         return;
       }
 
-      // Generate link and open
+      // Save order details to local database first
+      const newOrder = {
+        id: 'MS-' + Math.floor(100000 + Math.random() * 900000),
+        name: name,
+        phone: phone,
+        address: address,
+        notes: notes,
+        items: [...cart],
+        total: getCartTotal(),
+        status: 'Pending',
+        date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+      };
+      
+      orders.push(newOrder);
+      saveOrders();
+
+      // Generate link and redirect
       const link = generateWhatsAppLink(name, phone, address, notes);
       window.open(link, '_blank');
       
-      // Clear cart after redirect
       clearCart();
       renderCartPage();
       showToast("Redirecting to WhatsApp to complete checkout...");
     });
   }
 
-  // Exposed global click handlers for cart
   window.adjustCartQty = function(id, val) {
     const item = cart.find(i => i.id === id);
     if (item) {
@@ -728,3 +799,68 @@ function initCartPage() {
 
   renderCartPage();
 }
+
+// ----------------------------------------------------
+// ATELIER ADMIN CRUD & SETTINGS FUNCTIONS (For admin.html)
+// ----------------------------------------------------
+
+window.adminAddProduct = function(product) {
+  loadProducts();
+  
+  // Check unique ID
+  const existing = products.find(p => p.id === product.id);
+  if (existing) {
+    showToast("Product ID must be unique.");
+    return false;
+  }
+
+  products.push(product);
+  saveProducts();
+  showToast(`Watch "${product.name}" added successfully.`);
+  return true;
+};
+
+window.adminEditProduct = function(updatedProduct) {
+  loadProducts();
+  const index = products.findIndex(p => p.id === updatedProduct.id);
+  if (index !== -1) {
+    products[index] = updatedProduct;
+    saveProducts();
+    showToast(`Watch "${updatedProduct.name}" updated successfully.`);
+    return true;
+  }
+  showToast("Product not found.");
+  return false;
+};
+
+window.adminDeleteProduct = function(productId) {
+  loadProducts();
+  const initialLength = products.length;
+  products = products.filter(p => p.id !== productId);
+  if (products.length < initialLength) {
+    saveProducts();
+    showToast("Watch deleted successfully.");
+    return true;
+  }
+  return false;
+};
+
+window.adminUpdateOrderStatus = function(orderId, newStatus) {
+  loadOrders();
+  const order = orders.find(o => o.id === orderId);
+  if (order) {
+    order.status = newStatus;
+    saveOrders();
+    showToast(`Order status updated to ${newStatus}.`);
+    return true;
+  }
+  return false;
+};
+
+window.adminUpdateSettings = function(waNumber, currency, aboutQuote) {
+  localStorage.setItem('maison_sadique_wa_number', waNumber);
+  localStorage.setItem('maison_sadique_currency', currency);
+  localStorage.setItem('maison_sadique_about_quote', aboutQuote);
+  showToast("Settings saved successfully.");
+  return true;
+};
