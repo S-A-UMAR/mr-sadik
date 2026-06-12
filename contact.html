@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Maison Sadique. Reach out to our private concierge for bespoke commissions, boutique appointments, or horology service inquiries.">
+  <title>Maison Sadique | Contact our Concierge & Atelier</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Premium Header -->
+  <header>
+    <a href="index.html" class="logo">Maison <span>Sadique</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="cart.html" class="cart-icon" aria-label="View Shopping Cart">
+        &#128188; <!-- Cart suitcase icon -->
+        <span class="cart-badge" style="display: none;">0</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Contact Hero -->
+    <section class="about-hero">
+      <img src="assets/hero.png" alt="Maison Sadique workbench in Paris workshop">
+      <div class="about-hero-content">
+        <span class="section-subtitle" style="letter-spacing: 0.4em;">Private Assistance</span>
+        <h1 class="product-detail-name" style="font-size: 4rem; letter-spacing: 0.1em;">Contact Concierge</h1>
+      </div>
+    </section>
+
+    <!-- Contact Content Grid -->
+    <section class="contact-section">
+      <div class="contact-grid">
+        
+        <!-- Left Side: Concierge Info -->
+        <div class="contact-info-panel" style="animation: tabFadeIn 0.5s ease;">
+          <span class="section-subtitle">Horology House</span>
+          <h2 class="showcase-title" style="font-size: 2.25rem; margin-bottom: 1.5rem;">Atelier Inquiries</h2>
+          <p class="showcase-text" style="margin-bottom: 2rem;">
+            Whether you wish to arrange a private viewing at our Parisian showroom, discuss a bespoke movement commission, or inquire about collection availability, our concierge is at your service.
+          </p>
+
+          <div class="contact-details">
+            <div class="detail-item">
+              <span class="detail-label">Direct Concierge Hotline</span>
+              <a href="tel:+33140205050" class="detail-val">+33 (0) 1 40 20 50 50</a>
+            </div>
+            
+            <div class="detail-item">
+              <span class="detail-label">Electronic Mail</span>
+              <a href="mailto:concierge@maisonsadique.com" class="detail-val">concierge@maisonsadique.com</a>
+            </div>
+
+            <div class="detail-item">
+              <span class="detail-label">Independent Showrooms</span>
+              <p class="detail-val-text"><strong>Paris:</strong> 12 Place Vendôme, 75001 Paris, France</p>
+              <p class="detail-val-text"><strong>Geneva:</strong> 18 Rue du Rhône, 1204 Geneva, Switzerland</p>
+              <p class="detail-val-text"><strong>London:</strong> 45 Bond Street, Mayfair, London, UK</p>
+            </div>
+
+            <div class="detail-item">
+              <span class="detail-label">Atelier Operating Hours</span>
+              <p class="detail-val-text">Monday – Saturday: 10:00 – 19:00 CET</p>
+              <p class="detail-val-text">Sunday: By Private Invitation Only</p>
+            </div>
+          </div>
+
+          <a href="https://wa.me/447123456789?text=Hello%20Maison%20Sadique%2C%20I%20would%20like%20to%20arrange%20a%20private%20atelier%20consultation." target="_blank" class="btn-premium" style="display: inline-block; margin-top: 1rem;">
+            WhatsApp Chat Invitation
+          </a>
+        </div>
+
+        <!-- Right Side: Contact Form -->
+        <div class="contact-form-panel" style="animation: tabFadeIn 0.7s ease;">
+          <div class="glass-form-card">
+            <h3 class="form-card-title">Atelier Communication</h3>
+            <p class="form-card-subtitle">Please populate the credentials below. A concierge will respond to your request within one business day.</p>
+            
+            <form id="contact-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="c-name">Your Full Name *</label>
+                  <input type="text" id="c-name" required placeholder="e.g. Sterling Archer" autocomplete="name">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="c-email">Your Email Address *</label>
+                  <input type="email" id="c-email" required placeholder="e.g. sterling@isis.org" autocomplete="email">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="c-interest">Area of Interest</label>
+                  <select id="c-interest" class="form-select">
+                    <option value="Classic Series">Classic Gold Series Inquiry</option>
+                    <option value="Chronograph Series">Chronograph Series Inquiry</option>
+                    <option value="Minimalist Series">Minimalist Series Inquiry</option>
+                    <option value="Diving Series">Sport Dive Series Inquiry</option>
+                    <option value="Bespoke Commission">Bespoke Commission & Metallurgy</option>
+                    <option value="Private Showroom">Private Showroom Appointment</option>
+                    <option value="Service & Repair">Timepiece Service & Care</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="c-message">Inquiry Details *</label>
+                  <textarea id="c-message" required placeholder="Describe your request or reference specific watch specifications..." rows="5"></textarea>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-premium-solid" style="width: 100%; text-align: center; margin-top: 1rem;">
+                Submit Atelier Request
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Success Modal Overlay -->
+  <div class="modal-overlay" id="contact-success-modal" style="display: none; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); position: fixed; inset: 0; z-index: 2000;">
+    <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 3rem; max-width: 450px; width: 90%; text-align: center; box-shadow: var(--shadow-premium);">
+      <div style="width: 60px; height: 60px; background: rgba(223, 195, 154, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto; color: var(--accent-gold); font-size: 1.5rem;">✓</div>
+      <h3 style="font-family: var(--font-serif); font-size: 1.75rem; color: var(--text-primary); text-transform: uppercase; margin-bottom: 1rem; font-weight: 400; letter-spacing: 0.05em;">Transmission Logged</h3>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 2rem;">
+        Your communication has been securely logged with the Maison. A concierge will review your credentials and contact you within one business day.
+      </p>
+      <button onclick="closeSuccessModal()" class="btn-premium" style="width: 100%;">Return to Atelier</button>
+    </div>
+  </div>
+
+  <!-- Premium Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-info">
+        <h3 class="footer-logo">Maison <span>Sadique</span></h3>
+        <p class="footer-desc">
+          Maison Sadique is an independent luxury watch house dedicating its craft to sculptural mechanical designs, sapphire casing, and Swiss calibre movements.
+        </p>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-links-title">Collections</h4>
+        <div class="footer-links">
+          <a href="shop.html">Classic Collection</a>
+          <a href="shop.html">Chronographs</a>
+          <a href="shop.html">Diving Series</a>
+          <a href="shop.html">Minimalist Series</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-links-title">Atelier</h4>
+        <div class="footer-links">
+          <a href="about.html">Our Story</a>
+          <a href="about.html">Craftsmanship</a>
+          <a href="admin.html">Atelier Admin</a>
+          <a href="https://wa.me/447123456789" target="_blank">WhatsApp Boutique</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-links-title">Inquiries</h4>
+        <div class="footer-links">
+          <span style="color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">Paris & Geneva Atelier</span>
+          <span style="color: var(--text-secondary); display: block;">support@maisonsadique.com</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Maison Sadique. All rights reserved. Elegant craftsmanship made custom.</p>
+      <p>VAT & Import duty free deliveries worldwide.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

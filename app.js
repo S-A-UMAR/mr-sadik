@@ -1,3 +1,11 @@
+// Load theme immediately to prevent layout flashes
+(function() {
+  const savedTheme = localStorage.getItem('maison_sadique_theme');
+  if (savedTheme === 'light') {
+    document.documentElement.classList.add('light-theme');
+  }
+})();
+
 // Default Product Database
 const defaultProducts = [
   {
@@ -407,6 +415,7 @@ loadOrders();
 
 // DOM Page Handlers
 document.addEventListener('DOMContentLoaded', () => {
+  initThemeSwitcher();
   loadCart();
   updateHeaderCartBadge();
   initHeaderShrink();
@@ -415,6 +424,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const path = window.location.pathname;
   const pageName = path.substring(path.lastIndexOf('/') + 1);
+
+  // CONTACT handlers
+  if (pageName === 'contact.html') {
+    initContactPage();
+  }
 
   // HOMEPAGE handlers
   if (pageName === 'index.html' || pageName === '') {
@@ -864,3 +878,79 @@ window.adminUpdateSettings = function(waNumber, currency, aboutQuote) {
   showToast("Settings saved successfully.");
   return true;
 };
+
+// ----------------------------------------------------
+// CONTACT US PAGE FUNCTIONS
+// ----------------------------------------------------
+function initContactPage() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('c-name').value.trim();
+    const email = document.getElementById('c-email').value.trim();
+    const interest = document.getElementById('c-interest').value;
+    const message = document.getElementById('c-message').value.trim();
+
+    const newInquiry = {
+      id: 'INQ-' + Math.floor(100000 + Math.random() * 900000),
+      name: name,
+      email: email,
+      interest: interest,
+      message: message,
+      date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+
+    // Save to local storage inquiries database
+    const saved = localStorage.getItem('maison_sadique_inquiries');
+    let inquiries = [];
+    if (saved) {
+      try { inquiries = JSON.parse(saved); } catch(err) { inquiries = []; }
+    }
+    inquiries.push(newInquiry);
+    localStorage.setItem('maison_sadique_inquiries', JSON.stringify(inquiries));
+
+    // Show success modal
+    const modal = document.getElementById('contact-success-modal');
+    if (modal) {
+      modal.style.display = 'flex';
+      document.body.classList.add('no-scroll');
+    }
+
+    form.reset();
+  });
+}
+
+window.closeSuccessModal = function() {
+  const modal = document.getElementById('contact-success-modal');
+  if (modal) {
+    modal.style.display = 'none';
+    document.body.classList.remove('no-scroll');
+  }
+};
+
+// ----------------------------------------------------
+// FLOATING THEME SWITCHER
+// ----------------------------------------------------
+function initThemeSwitcher() {
+  if (document.querySelector('.theme-switcher-btn')) return;
+
+  const btn = document.createElement('button');
+  btn.className = 'theme-switcher-btn';
+  btn.setAttribute('aria-label', 'Switch color theme');
+  btn.innerHTML = `
+    <!-- Sun Icon (shown in Light Theme) -->
+    <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    <!-- Moon Icon (shown in Dark Theme) -->
+    <svg class="moon-icon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+  `;
+
+  document.body.appendChild(btn);
+
+  btn.addEventListener('click', () => {
+    const isLight = document.documentElement.classList.toggle('light-theme');
+    localStorage.setItem('maison_sadique_theme', isLight ? 'light' : 'dark');
+  });
+}

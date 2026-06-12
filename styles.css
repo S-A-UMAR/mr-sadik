@@ -2017,3 +2017,231 @@ body.no-scroll {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   LIGHT THEME OVERRIDES
+   ========================================================================= */
+:root.light-theme {
+  --bg-primary: #fbfaf7;         /* Warm Ivory/Alabaster */
+  --bg-secondary: #f4f1ea;       /* Fine Warm Parchment */
+  --bg-tertiary: #e9e5db;        /* Linen Grey */
+  
+  --text-primary: #0a0a0d;       /* Dark Obsidian */
+  --text-secondary: #4a4a52;     /* Muted Charcoal */
+  --text-tertiary: #7d7d8a;      /* Soft Slate */
+  
+  --accent-gold: #9d7d54;        /* Darker gold for contrast on light background */
+  --accent-gold-hover: #bda07b;  /* Hover gold */
+  --accent-gold-muted: rgba(157, 125, 84, 0.15);
+  
+  --border-color: rgba(157, 125, 84, 0.18);
+  --border-color-muted: rgba(0, 0, 0, 0.08);
+  --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Light Theme tweaks for specific elements */
+:root.light-theme .glass-form-card,
+:root.light-theme .checkout-form-panel {
+  background: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05) !important;
+}
+
+:root.light-theme header.shrink {
+  background: rgba(251, 250, 247, 0.95);
+}
+
+:root.light-theme .mobile-menu-overlay {
+  background: rgba(251, 250, 247, 0.98);
+}
+
+/* ==========================================================================
+   FLOATING THEME SWITCHER
+   ========================================================================= */
+.theme-switcher-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 52px;
+  height: 52px;
+  background: rgba(15, 15, 20, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-premium);
+  transition: var(--transition-smooth);
+}
+.theme-switcher-btn:hover {
+  transform: scale(1.1);
+  border-color: var(--accent-gold);
+  box-shadow: 0 10px 25px rgba(223, 195, 154, 0.2);
+}
+.theme-switcher-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--accent-gold);
+  stroke-width: 1.5;
+  transition: transform 0.5s ease;
+}
+.theme-switcher-btn:active svg {
+  transform: rotate(45deg);
+}
+
+:root.light-theme .theme-switcher-btn {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* Hide/show icons based on theme */
+.theme-switcher-btn .sun-icon { display: none; }
+.theme-switcher-btn .moon-icon { display: block; }
+
+:root.light-theme .theme-switcher-btn .sun-icon { display: block; }
+:root.light-theme .theme-switcher-btn .moon-icon { display: none; }
+
+/* ==========================================================================
+   CONTACT US PAGE STYLING
+   ========================================================================= */
+.contact-section {
+  padding: 5rem 2rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  margin: 2rem 0;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detail-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.detail-val {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  transition: var(--transition-fast);
+}
+.detail-val:hover {
+  color: var(--accent-gold);
+}
+
+.detail-val-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.glass-form-card {
+  background: rgba(18, 18, 22, 0.6);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-premium);
+}
+
+.form-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+
+.form-card-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.btn-premium-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 2.5rem;
+  background: var(--accent-gold);
+  border: 1px solid var(--accent-gold);
+  color: var(--bg-primary);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+}
+.btn-premium-solid:hover {
+  background: transparent;
+  color: var(--text-primary);
+  box-shadow: 0 10px 20px rgba(223, 195, 154, 0.1);
+}
+
+.form-select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 1rem;
+  font-family: inherit;
+  font-size: 0.88rem;
+  outline: none;
+  transition: var(--transition-fast);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dfc39a' stroke-width='1.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.25rem;
+  border-radius: 4px;
+}
+.form-select:focus {
+  border-color: var(--accent-gold);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.form-select option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+  .contact-section {
+    padding: 3rem 1.5rem;
+  }
+  .glass-form-card {
+    padding: 2rem;
+  }
+}
