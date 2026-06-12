@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Read full specifications and craftsmanship details of Maison Sadique luxury watch models. Add to cart or inquire directly with our boutique.">
+  <title>Maison Sadique | Exquisite Watch Details</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Premium Header -->
+  <header>
+    <a href="index.html" class="logo">Maison <span>Sadique</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="cart.html" class="cart-icon" aria-label="View Shopping Cart">
+        &#128188; <!-- Cart suitcase icon -->
+        <span class="cart-badge" style="display: none;">0</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Product Detail Container -->
+    <div class="product-detail-container">
+      
+      <!-- Left: Watch Image Gallery -->
+      <section class="product-gallery">
+        <div class="product-main-image">
+          <!-- Main Image dynamically targeted by app.js -->
+          <img id="pdp-main-img" src="" alt="Luxury watch closeup">
+        </div>
+        
+        <!-- Thumbnails Container dynamically targeted by app.js -->
+        <div class="product-thumbnails" id="pdp-thumbnails">
+          <!-- Thumbnail buttons injected dynamically -->
+        </div>
+      </section>
+
+      <!-- Right: Meta Panel & Actions -->
+      <section class="product-meta-panel">
+        <span class="product-category" id="pdp-category" style="font-size: 0.85rem; letter-spacing: 0.2em; margin-bottom: 1rem; display: block;">Luxury Series</span>
+        <h1 class="product-detail-name" id="pdp-name">Loading watch...</h1>
+        <div class="product-detail-price" id="pdp-price">$0</div>
+        
+        <p class="product-detail-description" id="pdp-description">
+          Loading the craftsmanship description of our premium horological timepieces...
+        </p>
+
+        <!-- Actions Row (Qty & Cart) -->
+        <div class="action-row">
+          <div class="qty-selector">
+            <button class="qty-btn" id="pdp-minus" aria-label="Decrease quantity">-</button>
+            <input type="text" class="qty-input" id="pdp-qty" value="1" readonly>
+            <button class="qty-btn" id="pdp-plus" aria-label="Increase quantity">+</button>
+          </div>
+          <button class="btn-add-cart" id="pdp-add-cart">Add to Cart</button>
+        </div>
+
+        <!-- WhatsApp Inquire Button -->
+        <button class="btn-whatsapp-inquire" id="pdp-wa-inquire">
+          &#128172; <!-- Chat bubble icon -->
+          Inquire Via WhatsApp
+        </button>
+
+        <!-- Specifications Accordion -->
+        <div class="specs-accordion">
+          <div class="accordion-item active">
+            <button class="accordion-header" aria-expanded="true">
+              <span>Technical Specifications</span>
+              <span class="accordion-icon">&#43;</span> <!-- Plus character -->
+            </button>
+            <div class="accordion-content">
+              <!-- Targeted specs list by app.js -->
+              <div class="specs-list" id="pdp-specs-list">
+                <!-- Dynamically rendered specification rows -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Premium Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-info">
+        <h3 class="footer-logo">Maison <span>Sadique</span></h3>
+        <p class="footer-desc">
+          Maison Sadique is an independent luxury watch house dedicating its craft to sculptural mechanical designs, sapphire casing, and Swiss calibre movements.
+        </p>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-links-title">Collections</h4>
+        <div class="footer-links">
+          <a href="shop.html">Classic Collection</a>
+          <a href="shop.html">Chronographs</a>
+          <a href="shop.html">Diving Series</a>
+          <a href="shop.html">Minimalist Series</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-links-title">Atelier</h4>
+        <div class="footer-links">
+          <a href="about.html">Our Story</a>
+          <a href="about.html">Craftsmanship</a>
+          <a href="index.html">Press Room</a>
+          <a href="https://wa.me/447123456789" target="_blank">WhatsApp Boutique</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-links-title">Inquiries</h4>
+        <div class="footer-links">
+          <span style="color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">Paris & Geneva Atelier</span>
+          <span style="color: var(--text-secondary); display: block;">support@maisonsadique.com</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Maison Sadique. All rights reserved. Elegant craftsmanship made custom.</p>
+      <p>VAT & Import duty free deliveries worldwide.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

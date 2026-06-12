@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Maison Sadique - Exquisite Swiss watchmaking and luxury timepieces. Explore our collections of hand-crafted chronographs and classic dress watches.">
+  <title>Maison Sadique | Haute Horlogerie & Luxury Timepieces</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Premium Header -->
+  <header>
+    <a href="index.html" class="logo">Maison <span>Sadique</span></a>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="cart.html" class="cart-icon" aria-label="View Shopping Cart">
+        &#128188; <!-- Cart suitcase icon -->
+        <span class="cart-badge" style="display: none;">0</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Cinematic Hero Section -->
+    <section class="hero">
+      <div class="hero-background">
+        <img src="assets/hero.png" alt="Maison Sadique luxury watch on dark marble slab">
+      </div>
+      <div class="hero-content">
+        <span class="hero-tagline">Parisian Design. Swiss Precision.</span>
+        <h1 class="hero-title">Crafting Time <br>As Art</h1>
+        <p class="hero-description">
+          Maison Sadique crafts exclusive timepieces that celebrate high mechanics, elegant metallurgy, and timeless aesthetic power. Every detail is sculpted by master horologists for the discerning individual.
+        </p>
+        <a href="shop.html" class="btn-premium">Explore The Collection</a>
+      </div>
+    </section>
+
+    <!-- Heritage & Craftsmanship Split Section -->
+    <section class="section">
+      <div class="showcase-row">
+        <div class="showcase-image">
+          <img src="assets/classic-gold.png" alt="Maison Sadique Classic Gold close-up detail" loading="lazy">
+        </div>
+        <div class="showcase-content">
+          <span class="section-subtitle">Heritage & Artistry</span>
+          <h2 class="showcase-title">Sculpted to Perfection</h2>
+          <p class="showcase-text">
+            For generations, the name Sadiq has stood for uncompromising attention to luxury. Re-imagined as Maison Sadique, our boutique atelier hand-assembles watch complications utilizing 18k rose gold, surgical-grade stainless steel, and anti-reflective double-domed sapphire crystals. 
+          </p>
+          <p class="showcase-text">
+            We operate in highly limited production runs to guarantee absolute exclusivity and preserve the extreme quality expected of luxury collectors.
+          </p>
+          <a href="about.html" class="btn-premium">Discover Our Story</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dynamic Featured Collection Section -->
+    <section class="section" style="background-color: var(--bg-secondary); border-top: 1px solid var(--border-color-muted); border-bottom: 1px solid var(--border-color-muted); max-width: 100%;">
+      <div style="max-width: var(--max-width); margin: 0 auto;">
+        <div class="section-header">
+          <span class="section-subtitle">Curated Showcase</span>
+          <h2 class="section-title">The Signature Pieces</h2>
+        </div>
+        
+        <!-- Target container for app.js dynamic rendering -->
+        <div class="products-grid" id="featured-products-grid">
+          <!-- Featured items injected dynamically -->
+        </div>
+        
+        <div style="text-align: center; margin-top: 5rem;">
+          <a href="shop.html" class="btn-premium">View All Watches</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Banner -->
+    <section class="section" style="text-align: center;">
+      <span class="section-subtitle" style="display: block; margin-bottom: 1rem;">Bespoke Consultations</span>
+      <h2 class="section-title" style="margin-bottom: 2rem; font-family: var(--font-serif); font-size: 2.75rem;">Acquire Your Custom Timepiece</h2>
+      <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 3rem auto; line-height: 1.8; font-size: 0.95rem;">
+        Speak directly with our boutique consultants via WhatsApp to arrange private viewings, request bespoke custom dial configurations, or arrange international door-to-door concierge delivery.
+      </p>
+      <a href="https://wa.me/447123456789?text=Hello%20Maison%20Sadique%2C%20I%20would%20like%20to%20inquire%20about%20arranging%20a%20private%20consultation%20for%20a%20watch%20order." target="_blank" class="btn-premium" style="border-color: #25d366; color: #25d366;">
+        Chat With Consultant
+      </a>
+    </section>
+  </main>
+
+  <!-- Premium Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-info">
+        <h3 class="footer-logo">Maison <span>Sadique</span></h3>
+        <p class="footer-desc">
+          Maison Sadique is an independent luxury watch house dedicating its craft to sculptural mechanical designs, sapphire casing, and Swiss calibre movements.
+        </p>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-links-title">Collections</h4>
+        <div class="footer-links">
+          <a href="shop.html">Classic Collection</a>
+          <a href="shop.html">Chronographs</a>
+          <a href="shop.html">Diving Series</a>
+          <a href="shop.html">Minimalist Series</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-links-title">Atelier</h4>
+        <div class="footer-links">
+          <a href="about.html">Our Story</a>
+          <a href="about.html">Craftsmanship</a>
+          <a href="index.html">Press Room</a>
+          <a href="https://wa.me/447123456789" target="_blank">WhatsApp Boutique</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-links-title">Inquiries</h4>
+        <div class="footer-links">
+          <span style="color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">Paris & Geneva Atelier</span>
+          <span style="color: var(--text-secondary); display: block;">support@maisonsadique.com</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Maison Sadique. All rights reserved. Elegant craftsmanship made custom.</p>
+      <p>VAT & Import duty free deliveries worldwide.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

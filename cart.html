@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View items in your luxury cart and complete your purchase. Checkout securely via our WhatsApp boutique concierge service.">
+  <title>Maison Sadique | Checkout & Cart</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Premium Header -->
+  <header>
+    <a href="index.html" class="logo">Maison <span>Sadique</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="cart.html" class="cart-icon" aria-label="View Shopping Cart">
+        &#128188; <!-- Cart suitcase icon -->
+        <span class="cart-badge" style="display: none;">0</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Shopping Cart Grid (rendered dynamically by app.js) -->
+    <div class="cart-page-container" id="cart-checkout-view" style="display: none;">
+      
+      <!-- Left: Cart Items & Shipping Form -->
+      <section>
+        <h1 style="font-family: var(--font-serif); font-size: 2.5rem; text-transform: uppercase; margin-bottom: 3rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">Your Selection</h1>
+        
+        <!-- Cart Items Target Container -->
+        <div class="cart-items-panel" id="cart-items-container">
+          <!-- Item rows dynamically injected -->
+        </div>
+
+        <!-- Shipping and Delivery Information Form -->
+        <form class="shipping-form" id="checkout-form" style="margin-top: 5rem;">
+          <h2 style="font-family: var(--font-serif); font-size: 1.75rem; text-transform: uppercase; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color-muted); padding-bottom: 1rem;">Delivery & Concierge Details</h2>
+          
+          <div class="form-group">
+            <label class="form-label" for="cus-name">Full Name *</label>
+            <input type="text" id="cus-name" class="form-input" required placeholder="e.g. Jean Dupont">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="cus-phone">Phone Number (with WhatsApp) *</label>
+            <input type="tel" id="cus-phone" class="form-input" required placeholder="e.g. +33 6 1234 5678">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="cus-address">Delivery Address *</label>
+            <input type="text" id="cus-address" class="form-input" required placeholder="e.g. 15 Rue de la Paix, 75002 Paris, France">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cus-notes">Bespoke Requests / Delivery Notes</label>
+            <input type="text" id="cus-notes" class="form-input" placeholder="e.g. Engrave initials 'S.A' on casing back, leave at concierge desk">
+          </div>
+          
+          <!-- Hidden submit to trigger form validation on checkout click -->
+          <input type="submit" id="hidden-submit" style="display: none;">
+        </form>
+      </section>
+
+      <!-- Right: Summary & Checkout button -->
+      <section>
+        <div class="checkout-summary-panel" id="cart-summary-panel">
+          <h3 class="summary-title">Boutique Summary</h3>
+          
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="cart-subtotal">$0</span>
+          </div>
+          
+          <div class="summary-row">
+            <span>Insured Shipping</span>
+            <span style="color: var(--accent-gold); font-weight: 500;">Complimentary</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Import Duties / Custom Clearance</span>
+            <span style="color: var(--accent-gold); font-weight: 500;">Included</span>
+          </div>
+          
+          <div class="summary-row total">
+            <span>Total Amount</span>
+            <span class="total-price" id="cart-total">$0</span>
+          </div>
+          
+          <p style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.6; margin: 2rem 0; text-align: justify;">
+            <strong>WhatsApp Checkout:</strong> To preserve the luxury custom experience, final purchase confirmation and payment execution occur in a secure chat thread with our boutique team. Your details will be prefilled in the chat message automatically.
+          </p>
+
+          <button class="btn-checkout" onclick="document.getElementById('hidden-submit').click();">
+            <span>Process Order via WhatsApp</span>
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Empty Cart View -->
+    <div class="cart-empty-view" id="cart-empty-view" style="display: none;">
+      <h1 class="cart-empty-title">Your Suite is Empty</h1>
+      <p class="cart-empty-text">
+        You have not added any timepieces to your current boutique cart. Please browse our collections to find your signature accessory.
+      </p>
+      <a href="shop.html" class="btn-premium">Browse Collections</a>
+    </div>
+  </main>
+
+  <!-- Premium Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-info">
+        <h3 class="footer-logo">Maison <span>Sadique</span></h3>
+        <p class="footer-desc">
+          Maison Sadique is an independent luxury watch house dedicating its craft to sculptural mechanical designs, sapphire casing, and Swiss calibre movements.
+        </p>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-links-title">Collections</h4>
+        <div class="footer-links">
+          <a href="shop.html">Classic Collection</a>
+          <a href="shop.html">Chronographs</a>
+          <a href="shop.html">Diving Series</a>
+          <a href="shop.html">Minimalist Series</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-links-title">Atelier</h4>
+        <div class="footer-links">
+          <a href="about.html">Our Story</a>
+          <a href="about.html">Craftsmanship</a>
+          <a href="index.html">Press Room</a>
+          <a href="https://wa.me/447123456789" target="_blank">WhatsApp Boutique</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-links-title">Inquiries</h4>
+        <div class="footer-links">
+          <span style="color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">Paris & Geneva Atelier</span>
+          <span style="color: var(--text-secondary); display: block;">support@maisonsadique.com</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Maison Sadique. All rights reserved. Elegant craftsmanship made custom.</p>
+      <p>VAT & Import duty free deliveries worldwide.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
